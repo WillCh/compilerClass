@@ -1,0 +1,97 @@
+(*
+ *  CS164 Fall 94
+ *
+ *  Programming Assignment 1
+ *    Implementation of a simple stack machine.
+ *
+ *  Skeleton file
+ *)
+
+class StackItem {
+  item : String;
+  next : Stack;
+};
+
+class Stack {
+  size: Int;
+  maxSize: Int;
+  itemPnt: StackItem;
+  (* method to init the stack *)
+  init(maxS: Int) : Stack {
+	size <- 0;
+	maxSize <- maxS;
+	self;
+  };
+
+  (* method to pop, if none then return a void item *)
+  pop() : String {
+	res:String;
+	if (size = 0) then 
+	    res
+	else
+	    {
+	    res <- itemPnt.item;
+	    itemPnt <- itemPnt.next;
+	    size <- size - 1;
+	    res;
+	    }
+	fi
+  };
+
+  (* method to push, input is a string *)
+  push(a: String) : Bool {
+	if (size = (maxSize + 1)) then
+	    false
+	else
+	    {
+		newItem:StackItem <- new StackItem;
+  		newItem.item <- a;
+		size <- size + 1;
+		newItem.next <- itemPnt;
+		itemPnt <- newItem;
+		true;
+	    } 
+	if
+
+  };
+
+  isEmpty() : Bool {
+	if (size = 0) then
+		true
+	else
+		false
+	if
+  };
+
+  printStack() : String {
+	(* print to a string from the mostrecent to last *)
+	res : String <- "";
+	if (size = 0) then
+	    res
+	else
+	    {
+		tmpIter : StackItem <- itemPnt;
+		while (size > 0)  loop	
+		    {
+			res.concat(" + ");
+			res.concat(tmpIter.item);
+			tmpIter <- tmpIter.next;
+		    }					
+		pool;
+		res;
+	    } 
+  };
+};
+
+class Main inherits IO {
+
+   main() : Object {
+      out_string("self test\n");
+	s : Stack <- (new Stack).init(3);
+	s.push("a");
+	s.push("b");
+	s.push("c");
+	out_string(s.printStack());
+   };
+
+};
